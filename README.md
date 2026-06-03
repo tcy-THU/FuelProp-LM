@@ -1,26 +1,25 @@
 # FuelProp-LM Downstream Inference Package
 
-This directory contains the scripts and processed downstream prompt datasets needed to reproduce downstream inference for FuelProp-LM. It does not include the base model weights or the fine-tuned LoRA adapter weights. Please download those from Hugging Face before running inference.
+This directory contains the scripts and processed downstream prompt datasets needed to reproduce downstream inference for FuelProp-LM. It does not include the base model weights or the fine-tuned LoRA adapter weights. Please download both from Hugging Face before running inference.
 
 ## Contents
 
 ```text
 .
-??? downstream_single.py                 # deterministic single-generation downstream inference
-??? downstream_sampling_uq_conformal.py  # sampling-based uncertainty estimation and conformal intervals
-??? evaluate_downstream_metrics.py       # MAE/RMSE/R2 evaluation from detailed CSV outputs
-??? prompter.py                          # prompt construction and response extraction helper
-??? templates/alpaca.json                # Alpaca prompt template used by prompter.py
-??? requirements.txt                     # Python dependencies used in the original environment
-??? plot_*.py                            # optional scripts for uncertainty figures
-??? data/                                # processed downstream prompts, organized by shot setting
-    ??? 0-shot/
-    ??? 1-shot/
-    ??? 2-shot/
-    ??? 3-shot/
-    ??? 4-shot/
-    ??? 6-shot/
-    ??? 8-shot/
+|-- downstream_single.py                 # deterministic single-generation downstream inference
+|-- downstream_sampling_uq_conformal.py  # sampling-based uncertainty estimation
+|-- evaluate_downstream_metrics.py       # MAE/RMSE/R2 evaluation from detailed CSV outputs
+|-- prompter.py                          # prompt construction and response extraction helper
+|-- templates/alpaca.json                # Alpaca prompt template used by prompter.py
+|-- requirements.txt                     # minimal dependencies for inference and evaluation
+`-- data/                                # processed downstream prompts, organized by shot setting
+    |-- 0-shot/
+    |-- 1-shot/
+    |-- 2-shot/
+    |-- 3-shot/
+    |-- 4-shot/
+    |-- 6-shot/
+    `-- 8-shot/
 ```
 
 The released downstream data include the fuel-property tasks used in the manuscript after removing RON, MON, and VP prompt files.
@@ -41,18 +40,25 @@ huggingface-cli download Qwen/Qwen2.5-7B-Instruct \
   --local-dir ./models/Qwen2.5-7B-Instruct
 ```
 
-Download the fine-tuned FuelProp-LM LoRA adapter from the model repository released by the authors. Replace `<YOUR_HF_REPO_ID>` with the actual Hugging Face repository ID:
+Download the fine-tuned FuelProp-LM LoRA adapter from Hugging Face:
 
 ```bash
-huggingface-cli download <YOUR_HF_REPO_ID> \
+huggingface-cli download tcy0512/FuelProp-LM \
   --local-dir ./models/Qwen_100000
 ```
 
-The LoRA directory should contain at least:
+After downloading, the directory layout should be:
 
 ```text
-adapter_config.json
-adapter_model.safetensors
+models/
+|-- Qwen2.5-7B-Instruct/
+|   |-- config.json
+|   |-- tokenizer_config.json
+|   |-- model-*.safetensors
+|   `-- ...
+`-- Qwen_100000/
+    |-- adapter_config.json
+    `-- adapter_model.safetensors
 ```
 
 If `adapter_config.json` contains a local `base_model_name_or_path`, it can be changed to `Qwen/Qwen2.5-7B-Instruct`, or to the relative local directory `./models/Qwen2.5-7B-Instruct`.
