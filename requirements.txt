@@ -1,19 +1,10 @@
-# Minimal dependencies for downstream inference and metric evaluation.
-# Install PyTorch with the CUDA/CPU build appropriate for your machine first if needed:
-# https://pytorch.org/get-started/locally/
-
-torch>=2.1
-transformers>=4.37
-peft>=0.7
-accelerate>=0.25
-bitsandbytes>=0.41
-safetensors>=0.4
-sentencepiece>=0.1.99
-
-datasets>=2.16
-numpy>=1.24
-pandas>=2.0
-scikit-learn>=1.3
-
-tqdm>=4.66
-fire>=0.5
+pandas
+openpyxl
+numpy
+scikit-learn
+xgboost
+PyYAML
+tqdm
+rdkit
+torch
+transformers
