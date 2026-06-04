@@ -1,10 +1,22 @@
-pandas
-openpyxl
-numpy
-scikit-learn
-xgboost
-PyYAML
-tqdm
-rdkit
-torch
-transformers
+# Reproducible downstream inference dependencies.
+# The FuelProp-LM LoRA adapter was validated with the versions below.
+# Install a CUDA/CPU PyTorch build appropriate for your machine if this
+# generic PyPI constraint is not suitable:
+# https://pytorch.org/get-started/locally/
+
+torch>=2.1,<2.6
+transformers==4.45.2
+peft==0.17.1
+accelerate==0.34.2
+bitsandbytes==0.43.3
+safetensors>=0.4.3
+sentencepiece>=0.1.99
+
+datasets==2.20.0
+numpy==1.26.4
+pandas==2.2.3
+scikit-learn==1.5.2
+fsspec==2024.5.0
+
+tqdm>=4.66
+fire>=0.5
